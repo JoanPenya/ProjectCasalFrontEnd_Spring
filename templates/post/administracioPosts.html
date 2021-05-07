@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title th:text="${titol}"></title>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+	<!-- carga NO TOCAR-->
+	<div class="col-md-12" id="contenedor_carga">
+		<img class="logo" id="logo" th:src="@{/img/logo.png}" height="150">
+
+		<img class="load" id="load" th:src="@{/img/load.gif}" height="150">
+	</div>
+
+	<!-- BARRA DEL NAVEGADOR -->
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white">
+		<a class="navbar-brand" href="#"><img th:src="@{/img/logo.png}"
+			width="150"></a>
+
+		<div class="collapse navbar-collapse nav navbar-nav navbar-center"
+			id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<h3 class="nav-item">administració de POSTS</h3>
+			</ul>
+		</div>
+		<div class="collapse navbar-collapse nav navbar-nav navbar-right">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link active" href="/admin/">Tornar
+						al menu</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<div class="col-md-12">
+		<div class="col-md-12 row">
+			<div class="col-md-4 text-center">
+				<a class="btn btn-primary" href="/admin/post/form">Nou POST</a>
+			</div>
+			<div class="col-md-4">
+				<span> </span>
+			</div>
+			<div class="col-md-4">
+				<span> </span>
+			</div>
+		</div>
+
+	</div>
+
+	<br>
+	<br>
+	<br>
+
+	<div class="col-md-12 row">
+		<div class="col-md-2">
+			<span> </span>
+		</div>
+		<div class="col-md-8">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">titulo</th>
+						<th scope="col">Descripcion</th>
+						<th scope="col">Fecha de publicacion</th>
+						<th scope="col">Editar-lo</th>
+						<th scope="col">Eliminar-lo?</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="publicacion: ${publicacion}">
+						<td scope="row" th:text="${publicacion.idPublicacion}"></td>
+						<td th:text="${publicacion.titulo}"></td>
+						<td th:text="${publicacion.descripcion}"></td>
+						<td
+							th:text="${publicacion.diaHoraPublicacion}"></td>
+						<td><a class="btn btn-primary"
+							th:href="@{/admin/post/form/} + ${publicacion.idPublicacion}">Editar</a></td>
+						<td><a class="btn btn-danger"
+							th:href="@{/admin/post/eliminar/} + ${publicacion.idPublicacion}">Eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<nav th:replace="paginator-nav :: paginator"></nav>
+		</div>
+		<div class="col-md-2">
+			<span> </span>
+		</div>
+	</div>
+
+
+	<!-- PIE -->
+	<footer class="fixed-bottom">
+		<hr>
+		<div class="text-center">
+			<p>Desenvolupat per: Joan Sebastia Penya Torres - (c) 2020</p>
+		</div>
+	</footer>
+
+	<!-- SCRIPTING -->
+	<script>
+		window.onload = function() {
+			var contenedor = document.getElementById('contenedor_carga');
+
+			contenedor.style.visibility = 'hidden';
+			contenedor.style.opacity = '0';
+		}
+	</script>
+</body>
+</html>
